@@ -24,7 +24,6 @@ days_in_year = 365
 base_ad = {'year': 2016, 'month': 9, 'day': 17, 'day_of_week': 6}
 base_bs = {'year': 2073, 'month': 6, 'day': 1, 'day_of_week': 6}
 
-
 calendar_data = {
     1978: (31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30, 365),
     1979: (31, 31, 32, 32, 31, 30, 30, 29, 30, 29, 30, 30, 365),
@@ -144,6 +143,12 @@ calendar_data = {
 }
 
 
+def get_end_days_for_month(year, month):
+    month_list_data = calendar_data.get(year)
+    month_index = month - 1
+    return month_list_data[month_index]
+
+
 def get_days_in_year(year):
     return calendar_data.get(year, days_in_year)
 
@@ -236,7 +241,8 @@ def offset_bs_days(day_data):
             'day_of_week': get_nepali_num(day_of_week),
             'str_day_of_week': np_day_of_week['full'],
             'str_short_day_of_week': np_day_of_week['short'],
-            'str_min_day_of_week': np_day_of_week['min']
+            'str_min_day_of_week': np_day_of_week['min'],
+            'end_day_for_month': get_nepali_num(get_end_days_for_month(bs_date['year'], bs_date['month']))
         },
         'en': {
             'year': bs_date['year'],
@@ -247,7 +253,8 @@ def offset_bs_days(day_data):
             'day_of_week': day_of_week,
             'str_day_of_week': en_day_of_week['full'],
             'str_short_day_of_week': en_day_of_week['short'],
-            'str_min_day_of_week': en_day_of_week['min']
+            'str_min_day_of_week': en_day_of_week['min'],
+            'end_day_for_month': get_end_days_for_month(bs_date['year'], bs_date['month'])
         }
     }
 
